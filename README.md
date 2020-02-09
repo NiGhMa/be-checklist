@@ -1,2 +1,2 @@
-# ms-checklist
-Micro-services pour l'application Checklist
+# be-checklist
+Micro-services pour l'application Checklist (Monorepo)
