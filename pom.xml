@@ -27,6 +27,9 @@
         <jacoco.coverage.ratio.line>0.8</jacoco.coverage.ratio.line>
         <sonar.coverage.jacoco.xmlReportsPath>${jacoco.outputDir}/jacoco.xml</sonar.coverage.jacoco.xmlReportsPath>
         <sonar.junit.reportPaths>${project.build.directory}/surefire-reports</sonar.junit.reportPaths>
+        <sonar.exclusions>
+            **/*Application.java
+        </sonar.exclusions>
     </properties>
 
     <modules>
