@@ -3,7 +3,7 @@ addons:
   sonarcloud:
     organization: nighma
 script:
-- mvn clean test jacoco:report install sonar:sonar -Dsonar.projectKey=NiGhMa_be-checklist
+- mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=NiGhMa_be-checklist
 after_success:
 - mvn clean test jacoco:report coveralls:report
 git:
