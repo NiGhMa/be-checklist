@@ -21,7 +21,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <surefire.version>2.22.2</surefire.version>
         <jacoco.version>0.8.5</jacoco.version>
+        <jacoco.outputDir>${project.build.directory}/jacoco-report</jacoco.outputDir>
+        <jacoco.coverage.ratio.line>0.8</jacoco.coverage.ratio.line>
+        <sonar.coverage.jacoco.xmlReportsPath>${jacoco.outputDir}/jacoco.xml</sonar.coverage.jacoco.xmlReportsPath>
+        <sonar.junit.reportPaths>${project.build.directory}/surefire-reports</sonar.junit.reportPaths>
     </properties>
 
     <modules>
@@ -30,18 +35,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>2.2.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -60,7 +53,7 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/jacoco-report</outputDirectory>
+                            <outputDirectory>${jacoco.outputDir}</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -76,7 +69,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.8</minimum>
+                                            <minimum>${jacoco.coverage.ratio.line}</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -84,6 +77,16 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>${project.build.directory}/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
