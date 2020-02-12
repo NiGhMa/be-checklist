@@ -13,6 +13,6 @@ jobs:
       uses: actions/setup-java@v11
       with:
         java-version: 11
-        architecture: x64:  
+        architecture: x64
     - name: Build with Maven
       run: mvn -B package --file pom.xml
